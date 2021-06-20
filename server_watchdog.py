@@ -76,18 +76,22 @@ if __name__ == '__main__':
         ips = config["ips"]
         ports = config["ports"]
         names = config["names"]
+        https = config["https"]
         if type(ips) is not list:
             ips = [ips]
         if type(ports) is not list:
             ports = [ports]
         if type(names) is not list:
             names = [names]
-        if not (len(ips) == len(ports) == len(names)):
+        if not (len(ips) == len(ports) == len(names) == len(https)):
             logger.critical("Config file inaccurate, server lists not the same size")
             exit()
         servers = {}
-        for ip, port, name in zip(ips, ports, names):
-            servers[name] = f"http://{ip}:{port}"
+        for ip, port, name, secure in zip(ips, ports, names, https):
+            if not secure:
+                servers[name] = f"http://{ip}:{port}"
+            else:
+                servers[name] = f"https://{ip}:{port}"
 
         gmail = Gmail(
             config["smtp_server"],

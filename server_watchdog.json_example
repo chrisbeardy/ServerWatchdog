@@ -2,6 +2,7 @@
     "ips": ["192.168.1.100"],
     "ports": ["80"],
     "names": ["Webserver"],
+    "https": [false],
     "smtp_server": "smtp.gmail.com",
     "smtp_port": "587",
     "username": "your-email@gmail.com",
