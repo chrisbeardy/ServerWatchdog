@@ -15,7 +15,7 @@ def check_servers(servers, gmail):
     for server_name, address in servers.items():
         try:
             logger.debug(f"Testing server '{server_name}' on address '{address}'")
-            status = requests.get(address)
+            status = requests.get(address, timeout=60)
             if status.status_code != 200:
                 logger.warning(f"Server '{server_name}' on address '{address}' responded with non 200 status code")
                 downed_servers.append(server_name)
